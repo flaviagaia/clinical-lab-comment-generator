@@ -39,6 +39,23 @@ class ClinicalLabCommentGeneratorTests(unittest.TestCase):
         self.assertIn("diabetes", result["draft_comment"].lower())
         self.assertIn("creatinine", result["draft_comment"].lower())
 
+    def test_pipeline_rejects_implausible_inputs(self) -> None:
+        with self.assertRaises(ValueError):
+            self.pipeline.run(
+                hemoglobin_g_dl=13.2,
+                wbc_k_ul=7.4,
+                platelets_k_ul=250.0,
+                creatinine_mg_dl=1.8,
+                egfr_ml_min=46.0,
+                alt_u_l=32.0,
+                ast_u_l=29.0,
+                a1c_percent=35.0,
+                glucose_mg_dl=162.0,
+                ldl_mg_dl=140.0,
+                triglycerides_mg_dl=188.0,
+                crp_mg_l=4.2,
+            )
+
 
 if __name__ == "__main__":
     unittest.main()

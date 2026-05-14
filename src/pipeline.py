@@ -40,6 +40,21 @@ class ClinicalLabCommentGeneratorPipeline:
         clinical_context: str = "",
         top_k: int = 5,
     ) -> dict:
+        self._validate_inputs(
+            hemoglobin_g_dl=hemoglobin_g_dl,
+            wbc_k_ul=wbc_k_ul,
+            platelets_k_ul=platelets_k_ul,
+            creatinine_mg_dl=creatinine_mg_dl,
+            egfr_ml_min=egfr_ml_min,
+            alt_u_l=alt_u_l,
+            ast_u_l=ast_u_l,
+            a1c_percent=a1c_percent,
+            glucose_mg_dl=glucose_mg_dl,
+            ldl_mg_dl=ldl_mg_dl,
+            triglycerides_mg_dl=triglycerides_mg_dl,
+            crp_mg_l=crp_mg_l,
+        )
+
         interpretation_lines: list[str] = []
         interpretation_lines.extend(interpret_cbc(hemoglobin_g_dl, wbc_k_ul, platelets_k_ul))
         interpretation_lines.extend(interpret_kidney(creatinine_mg_dl, egfr_ml_min))
@@ -74,3 +89,24 @@ class ClinicalLabCommentGeneratorPipeline:
             "retrieved_count": len(retrieved),
             **generated,
         }
+
+    @staticmethod
+    def _validate_inputs(**values: float) -> None:
+        allowed_ranges = {
+            "hemoglobin_g_dl": (0.0, 25.0),
+            "wbc_k_ul": (0.0, 100.0),
+            "platelets_k_ul": (0.0, 2000.0),
+            "creatinine_mg_dl": (0.0, 20.0),
+            "egfr_ml_min": (0.0, 200.0),
+            "alt_u_l": (0.0, 5000.0),
+            "ast_u_l": (0.0, 5000.0),
+            "a1c_percent": (0.0, 20.0),
+            "glucose_mg_dl": (0.0, 1000.0),
+            "ldl_mg_dl": (0.0, 500.0),
+            "triglycerides_mg_dl": (0.0, 5000.0),
+            "crp_mg_l": (0.0, 500.0),
+        }
+        for name, value in values.items():
+            low, high = allowed_ranges[name]
+            if not low <= value <= high:
+                raise ValueError(f"Invalid value for {name}: expected between {low} and {high}, got {value}.")
