@@ -1,0 +1,33 @@
+{
+  "recommended_public_dataset": {
+    "name": "NHANES laboratory data",
+    "why_it_was_chosen": [
+      "large official public laboratory datasets from CDC",
+      "broad coverage of chemistry and biomarker measurements",
+      "strong fit for structured tabular lab interpretation pipelines"
+    ],
+    "references": [
+      {
+        "label": "NHANES official CDC page",
+        "url": "https://www.cdc.gov/nchs/nhanes/"
+      },
+      {
+        "label": "NHANES laboratory data explorer",
+        "url": "https://wwwn.cdc.gov/nchs/nhanes/search/datapage.aspx?Component=Laboratory&Cycle="
+      },
+      {
+        "label": "LOINC",
+        "url": "https://loinc.org/"
+      }
+    ]
+  },
+  "advanced_upgrade_path": {
+    "datasets": [
+      {
+        "name": "MIMIC-IV labevents",
+        "note": "richer real-world inpatient lab context, but credentialed access required"
+      }
+    ]
+  },
+  "runtime_note": "This repository uses a local structured laboratory sample corpus inspired by public lab datasets and standard comment phrasing so the stack remains reproducible."
+}
