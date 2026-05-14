@@ -88,7 +88,7 @@ Este repositório **não distribui o corpus completo da NHANES**. Em vez disso, 
 - permitir execução imediata;
 - preservar reprodutibilidade completa no GitHub.
 
-O mapeamento para a base pública recomendada está documentado em [public_dataset_reference.json](/Users/flaviagaia/Documents/CV_FLAVIA_CODEX/clinical-lab-comment-generator/data/raw/public_dataset_reference.json).
+O mapeamento para a base pública recomendada está documentado em [public_dataset_reference.json](data/raw/public_dataset_reference.json).
 
 ---
 
@@ -126,7 +126,7 @@ Esse desenho foi escolhido porque:
 - torna o pipeline mais determinístico.
 
 #### 2. Faixas de referência
-Arquivo principal: [reference_ranges.py](/Users/flaviagaia/Documents/CV_FLAVIA_CODEX/clinical-lab-comment-generator/src/reference_ranges.py)
+Arquivo principal: [reference_ranges.py](src/reference_ranges.py)
 
 Essa camada centraliza faixas básicas de referência para:
 - hemoglobina
@@ -156,7 +156,7 @@ Essa camada é pequena, mas estrutural. Ela torna o projeto:
 - fácil de expandir para sexo/idade/faixa etária.
 
 #### 3. Lógica clínica determinística
-Arquivo principal: [clinical_logic.py](/Users/flaviagaia/Documents/CV_FLAVIA_CODEX/clinical-lab-comment-generator/src/clinical_logic.py)
+Arquivo principal: [clinical_logic.py](src/clinical_logic.py)
 
 Essa camada implementa interpretação por domínio:
 - `interpret_diabetes`
@@ -187,7 +187,7 @@ Importante:
 o sistema **não tenta inferir doenças complexas**. Ele identifica padrões laboratoriais coerentes e os transforma em linguagem clínica curta.
 
 #### 4. Corpus local e knowledge base
-Arquivo principal: [data_factory.py](/Users/flaviagaia/Documents/CV_FLAVIA_CODEX/clinical-lab-comment-generator/src/data_factory.py)
+Arquivo principal: [data_factory.py](src/data_factory.py)
 
 Essa camada cria:
 
@@ -209,7 +209,7 @@ Isso cria uma arquitetura híbrida de retrieval:
 - **knowledge-based retrieval**
 
 #### 5. Retrieval
-Arquivo principal: [retrieval.py](/Users/flaviagaia/Documents/CV_FLAVIA_CODEX/clinical-lab-comment-generator/src/retrieval.py)
+Arquivo principal: [retrieval.py](src/retrieval.py)
 
 O sistema indexa casos e documentos com:
 - `TfidfVectorizer(stop_words="english", ngram_range=(1, 2))`
@@ -229,7 +229,7 @@ Cada caso indexado agrega:
 Isso ajuda o retriever a recuperar não só “valor igual”, mas também um padrão clínico próximo.
 
 #### 6. Geração do comentário
-Arquivo principal: [generation.py](/Users/flaviagaia/Documents/CV_FLAVIA_CODEX/clinical-lab-comment-generator/src/generation.py)
+Arquivo principal: [generation.py](src/generation.py)
 
 A geração combina:
 - linhas de interpretação produzidas pela lógica clínica;
@@ -251,7 +251,7 @@ Isso foi uma escolha intencional porque:
 - prepara o sistema para uma futura camada generativa mais avançada.
 
 #### 7. Orquestração do pipeline
-Arquivo principal: [pipeline.py](/Users/flaviagaia/Documents/CV_FLAVIA_CODEX/clinical-lab-comment-generator/src/pipeline.py)
+Arquivo principal: [pipeline.py](src/pipeline.py)
 
 O pipeline:
 1. valida ranges plausíveis de entrada;
@@ -279,7 +279,7 @@ O contrato de saída inclui:
 ### Validação defensiva
 Um ponto importante neste projeto é que a validação não fica só na API.
 
-O pipeline implementa validação própria em [pipeline.py](/Users/flaviagaia/Documents/CV_FLAVIA_CODEX/clinical-lab-comment-generator/src/pipeline.py), para impedir que valores numericamente absurdos gerem comentários clínicos sem sentido quando o sistema for usado diretamente em Python.
+O pipeline implementa validação própria em [pipeline.py](src/pipeline.py), para impedir que valores numericamente absurdos gerem comentários clínicos sem sentido quando o sistema for usado diretamente em Python.
 
 Isso torna o projeto mais robusto em dois cenários:
 - uso via `FastAPI`
@@ -352,7 +352,7 @@ Esse contrato facilita:
 ### Interfaces
 
 #### API
-Arquivo: [app.py](/Users/flaviagaia/Documents/CV_FLAVIA_CODEX/clinical-lab-comment-generator/app.py)
+Arquivo: [app.py](app.py)
 
 Endpoints:
 - `GET /health`
@@ -380,7 +380,7 @@ Payload esperado:
 ```
 
 #### Streamlit demo
-Arquivo: [streamlit_app.py](/Users/flaviagaia/Documents/CV_FLAVIA_CODEX/clinical-lab-comment-generator/streamlit_app.py)
+Arquivo: [streamlit_app.py](streamlit_app.py)
 
 A demo expõe:
 - entrada manual dos exames;
@@ -459,7 +459,7 @@ python3 -m unittest discover -s tests -v
 python3 -m py_compile main.py app.py streamlit_app.py src/reference_ranges.py src/clinical_logic.py src/data_factory.py src/retrieval.py src/generation.py src/pipeline.py tests/test_project.py
 ```
 
-Testes cobertos em [test_project.py](/Users/flaviagaia/Documents/CV_FLAVIA_CODEX/clinical-lab-comment-generator/tests/test_project.py):
+Testes cobertos em [test_project.py](tests/test_project.py):
 - interpretação de diabetes;
 - interpretação de função renal;
 - geração de comentário final;
@@ -497,12 +497,6 @@ Portanto, o projeto deve ser entendido como:
 
 ---
 
-### Como defender este projeto em entrevista
-Uma síntese forte seria:
-
-> Construí um gerador assistido de comentários laboratoriais que combina interpretação determinística de exames com um pipeline de RAG. O sistema recebe um painel laboratorial estruturado, identifica padrões relevantes como disfunção renal, diabetes e inflamação, recupera casos e snippets semelhantes e gera um comentário final para revisão clínica. O MVP é totalmente reproduzível com base local inspirada em NHANES, mas foi desenhado para evoluir para bases como MIMIC-IV e integração real com LOINC.
-
----
 
 ## English
 
@@ -592,7 +586,7 @@ This repository does **not** redistribute the full NHANES corpus. Instead, it us
 - allow immediate execution;
 - preserve full reproducibility on GitHub.
 
-The mapping to the recommended public dataset is documented in [public_dataset_reference.json](/Users/flaviagaia/Documents/CV_FLAVIA_CODEX/clinical-lab-comment-generator/data/raw/public_dataset_reference.json).
+The mapping to the recommended public dataset is documented in [public_dataset_reference.json](data/raw/public_dataset_reference.json).
 
 ---
 
@@ -630,7 +624,7 @@ This design was chosen because it:
 - keeps the workflow deterministic.
 
 #### 2. Reference range layer
-Primary file: [reference_ranges.py](/Users/flaviagaia/Documents/CV_FLAVIA_CODEX/clinical-lab-comment-generator/src/reference_ranges.py)
+Primary file: [reference_ranges.py](src/reference_ranges.py)
 
 This layer centralizes simplified reference cutoffs for:
 - hemoglobin
@@ -660,7 +654,7 @@ This is a small but foundational layer. It makes the repository:
 - easy to extend toward sex-/age-specific logic.
 
 #### 3. Deterministic clinical interpretation layer
-Primary file: [clinical_logic.py](/Users/flaviagaia/Documents/CV_FLAVIA_CODEX/clinical-lab-comment-generator/src/clinical_logic.py)
+Primary file: [clinical_logic.py](src/clinical_logic.py)
 
 This layer implements domain-specific interpretation functions:
 - `interpret_diabetes`
@@ -691,7 +685,7 @@ Important:
 the system does **not** attempt to infer complex diagnoses. It identifies coherent lab patterns and converts them into concise comment language.
 
 #### 4. Local corpus and knowledge base
-Primary file: [data_factory.py](/Users/flaviagaia/Documents/CV_FLAVIA_CODEX/clinical-lab-comment-generator/src/data_factory.py)
+Primary file: [data_factory.py](src/data_factory.py)
 
 This layer creates:
 
@@ -713,7 +707,7 @@ This gives the project a hybrid retrieval architecture:
 - **knowledge-based retrieval**
 
 #### 5. Retrieval layer
-Primary file: [retrieval.py](/Users/flaviagaia/Documents/CV_FLAVIA_CODEX/clinical-lab-comment-generator/src/retrieval.py)
+Primary file: [retrieval.py](src/retrieval.py)
 
 The project indexes cases and documents using:
 - `TfidfVectorizer(stop_words="english", ngram_range=(1, 2))`
@@ -733,7 +727,7 @@ Each indexed case includes:
 This helps the retriever recover not only close numeric values, but also clinically similar interpretive patterns.
 
 #### 6. Comment generation layer
-Primary file: [generation.py](/Users/flaviagaia/Documents/CV_FLAVIA_CODEX/clinical-lab-comment-generator/src/generation.py)
+Primary file: [generation.py](src/generation.py)
 
 Generation combines:
 - deterministic interpretation lines;
@@ -755,7 +749,7 @@ This was intentional because it:
 - creates a strong foundation before introducing a more open generative layer.
 
 #### 7. Pipeline orchestration layer
-Primary file: [pipeline.py](/Users/flaviagaia/Documents/CV_FLAVIA_CODEX/clinical-lab-comment-generator/src/pipeline.py)
+Primary file: [pipeline.py](src/pipeline.py)
 
 The pipeline:
 1. validates plausible numeric ranges;
@@ -783,7 +777,7 @@ The output contract includes:
 ### Defensive validation
 An important design choice in this repository is that validation does not live only in the API layer.
 
-The pipeline itself validates plausible ranges in [pipeline.py](/Users/flaviagaia/Documents/CV_FLAVIA_CODEX/clinical-lab-comment-generator/src/pipeline.py), so impossible or absurd values do not silently generate misleading comments when the class is used directly from Python.
+The pipeline itself validates plausible ranges in [pipeline.py](src/pipeline.py), so impossible or absurd values do not silently generate misleading comments when the class is used directly from Python.
 
 This makes the project more robust in two distinct scenarios:
 - `FastAPI` usage
@@ -856,7 +850,7 @@ This makes the output:
 ### Interfaces
 
 #### API
-File: [app.py](/Users/flaviagaia/Documents/CV_FLAVIA_CODEX/clinical-lab-comment-generator/app.py)
+File: [app.py](app.py)
 
 Endpoints:
 - `GET /health`
@@ -884,7 +878,7 @@ Expected payload:
 ```
 
 #### Streamlit demo
-File: [streamlit_app.py](/Users/flaviagaia/Documents/CV_FLAVIA_CODEX/clinical-lab-comment-generator/streamlit_app.py)
+File: [streamlit_app.py](streamlit_app.py)
 
 The demo exposes:
 - manual laboratory entry;
@@ -963,7 +957,7 @@ python3 -m unittest discover -s tests -v
 python3 -m py_compile main.py app.py streamlit_app.py src/reference_ranges.py src/clinical_logic.py src/data_factory.py src/retrieval.py src/generation.py src/pipeline.py tests/test_project.py
 ```
 
-Tests covered in [test_project.py](/Users/flaviagaia/Documents/CV_FLAVIA_CODEX/clinical-lab-comment-generator/tests/test_project.py):
+Tests covered in [test_project.py](tests/test_project.py):
 - diabetes interpretation
 - kidney interpretation
 - final comment generation
@@ -1001,7 +995,3 @@ So this repository should be understood as:
 
 ---
 
-### How to position this project in an interview
-A strong summary would be:
-
-> I built an assisted clinical laboratory comment generator that combines deterministic interpretation rules with a RAG pipeline. The system receives a structured laboratory panel, detects relevant patterns such as renal impairment, diabetes-range hyperglycemia, and inflammation, retrieves similar cases and wording snippets, and produces a concise final comment for clinical review. The MVP is fully reproducible using a local NHANES-style corpus, but it is designed to evolve toward MIMIC-IV and real LOINC integration.
